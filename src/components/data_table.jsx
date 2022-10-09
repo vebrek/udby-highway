@@ -1,12 +1,12 @@
 import * as React from 'react';
-
 import { DataGrid } from '@mui/x-data-grid';
-
+// const fs = require('fs');
+const Papa = require('papaparse');
 
 const columns = [
-  { field: 'id', headerName: 'ID', width: 70 },
-  { field: 'firstName', headerName: 'First name', width: 130 },
-  { field: 'lastName', headerName: 'Last name', width: 130 },
+  { field: 'seq', headerName: 'ID', width: 70 },
+  { field: 'name/first', headerName: 'First name', width: 130 },
+  { field: 'name/last', headerName: 'Last name', width: 130 },
   {
     field: 'age',
     headerName: 'Age',
@@ -14,7 +14,7 @@ const columns = [
     width: 90,
   },
   {
-    field: 'fullName',
+    field: 'street',
     headerName: 'Full name',
     description: 'This column has a value getter and is not sortable.',
     sortable: false,
@@ -22,6 +22,11 @@ const columns = [
     valueGetter: (params) =>
       `${params.row.firstName || ''} ${params.row.lastName || ''}`,
   },
+  { field: 'city', headerName: 'City', width: 70 },
+  { field: 'state', headerName: 'State', width: 70 },
+  { field: 'latitude', headerName: 'Lat', width: 70 },
+  { field: 'longitude', headerName: 'Long', width: 70 },
+  { field: 'ccnumber', headerName: 'CC number', width: 70 },
 ];
 
 
@@ -38,15 +43,35 @@ const rows = [
 ];
 
 const DataTable = () => {
+    const [data, setData] = React.useState([])
+
+    React.useEffect(() => {
+        Papa.parse('../45784.csv', {
+            header: true,
+            download: true,
+            dynamicTyping: true,
+            complete: function(results) {
+              console.log(results.data);
+              // headers = results.meta.fields;
+              setData(results.data);
+            }
+          });
+    }, [])
   return (
     <div style={{ height: 400, width: '100%' }}>
-      <DataGrid
-        rows={rows}
-        columns={columns}
-        pageSize={5}
-        rowsPerPageOptions={[5]}
-        checkboxSelection
-      />
+        {data.length > 0 ?
+            <DataGrid
+            getRowId={(row) => row.seq} 
+            rows={data}
+            columns={columns}
+            pageSize={5}
+            rowsPerPageOptions={[5]}
+            checkboxSelection
+          />
+          :
+          <></>  
+        }
+      
     </div>
   );
 }
