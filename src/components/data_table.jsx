@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { DataGrid } from '@mui/x-data-grid';
+import { DataGrid, GridToolbar } from '@mui/x-data-grid';
 // const fs = require('fs');
 const Papa = require('papaparse');
 
@@ -31,7 +31,8 @@ const columns = [
 
 
 const DataTable = () => {
-    const [data, setData] = React.useState([])
+    const [ data, setData ] = React.useState([]);
+    const [ isLoading, setIsLoading ] = React.useState(true);
 
     React.useEffect(() => {
         Papa.parse('../45784.csv', {
@@ -39,27 +40,26 @@ const DataTable = () => {
             download: true,
             dynamicTyping: true,
             complete: function(results) {
-              console.log(results.data);
-              // headers = results.meta.fields;
               setData(results.data);
+              setIsLoading(false);
             }
           });
     }, [])
 
     return (
-        <div style={{ height: 650, width: '100%' }}>
-            {data.length > 0 ?
-                <DataGrid
-                    getRowId={(row) => row.seq} 
-                    rows={data}
-                    columns={columns}
-                    pageSize={10}
-                    rowsPerPageOptions={[50]}
-                    checkboxSelection
-                />
-            :
-                <></>  
-            }
+        <div style={{ height: 700, width: '100%' }}>
+            <DataGrid
+                getRowId={(row) => row.seq} 
+                rows={data}
+                columns={columns}
+                loading={isLoading}
+                pageSize={10}
+                rowsPerPageOptions={[50]}
+                checkboxSelection
+                components={{
+                    Toolbar: GridToolbar,
+                    }}
+            />
     </div>
   );
 }
