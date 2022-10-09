@@ -1,18 +1,17 @@
 import * as React from 'react';
 import { DataGrid, GridToolbar } from '@mui/x-data-grid';
-// const fs = require('fs');
+import CustomToolbar from './custom-toolbar';
 const Papa = require('papaparse');
 
 const columns = [
-  { field: 'seq', headerName: 'Seq', width: 70 },
-  { field: 'name/first', headerName: 'First name', width: 130 },
-  { field: 'name/last', headerName: 'Last name', width: 130 },
+  { field: 'seq', headerName: 'Seq', flex: 1 },
+  { field: 'name/first', headerName: 'First name', flex: 2 },
+  { field: 'name/last', headerName: 'Last name', flex: 2 },
   {
-    field: 'street',
+    field: 'fullname',
     headerName: 'Full Name',
     description: 'This column has a value getter and is not sortable.',
-    sortable: false,
-    width: 160,
+    flex: 3.5,
     valueGetter: (params) =>
       `${params.row['name/first'] || ''} ${params.row['name/last'] || ''}`,
   },
@@ -20,13 +19,14 @@ const columns = [
     field: 'age',
     headerName: 'Age',
     type: 'number',
-    width: 50,
+    flex: 1,
   },
-  { field: 'city', headerName: 'City', width: 150 },
-  { field: 'state', headerName: 'State', width: 50 },
-  { field: 'latitude', headerName: 'Lat', width: 100 },
-  { field: 'longitude', headerName: 'Long', width: 100 },
-  { field: 'ccnumber', headerName: 'CC number', width: 150 },
+  { field: 'street', headerName: 'Street', flex: 3 },
+  { field: 'city', headerName: 'City', flex: 2 },
+  { field: 'state', headerName: 'State', flex: 1 },
+  { field: 'latitude', headerName: 'Lat', flex: 2.5,  },
+  { field: 'longitude', headerName: 'Long', flex: 2.5, },
+  { field: 'ccnumber', headerName: 'CC number', flex: 3 },
 ];
 
 
@@ -47,21 +47,22 @@ const DataTable = () => {
     }, [])
 
     return (
-        <div style={{ height: 700, width: '100%' }}>
+        <div style={{ display: 'flex', width: '100%', }}>
             <DataGrid
                 getRowId={(row) => row.seq} 
                 rows={data}
                 columns={columns}
                 loading={isLoading}
                 pageSize={10}
-                rowsPerPageOptions={[50]}
+                rowsPerPageOptions={[10]}
                 checkboxSelection
+                autoHeight 
                 components={{
-                    Toolbar: GridToolbar,
-                    }}
+                    Toolbar: CustomToolbar,
+                }}
             />
     </div>
   );
 }
 
-export default DataTable
+export default DataTable;

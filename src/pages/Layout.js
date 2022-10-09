@@ -34,7 +34,7 @@ const Layout = () => {
           </Box>
         </Toolbar>
       </AppBar>
-      <Box component="main" sx={{ p: 3 }}>
+      <Box component="main" sx={{ p: 3, width: '100%' }}>
         <Toolbar />
         <Outlet />
       </Box>
