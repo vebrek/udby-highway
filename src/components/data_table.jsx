@@ -4,43 +4,31 @@ import { DataGrid } from '@mui/x-data-grid';
 const Papa = require('papaparse');
 
 const columns = [
-  { field: 'seq', headerName: 'ID', width: 70 },
+  { field: 'seq', headerName: 'Seq', width: 70 },
   { field: 'name/first', headerName: 'First name', width: 130 },
   { field: 'name/last', headerName: 'Last name', width: 130 },
   {
-    field: 'age',
-    headerName: 'Age',
-    type: 'number',
-    width: 90,
-  },
-  {
     field: 'street',
-    headerName: 'Full name',
+    headerName: 'Full Name',
     description: 'This column has a value getter and is not sortable.',
     sortable: false,
     width: 160,
     valueGetter: (params) =>
-      `${params.row.firstName || ''} ${params.row.lastName || ''}`,
+      `${params.row['name/first'] || ''} ${params.row['name/last'] || ''}`,
   },
-  { field: 'city', headerName: 'City', width: 70 },
-  { field: 'state', headerName: 'State', width: 70 },
-  { field: 'latitude', headerName: 'Lat', width: 70 },
-  { field: 'longitude', headerName: 'Long', width: 70 },
-  { field: 'ccnumber', headerName: 'CC number', width: 70 },
+  {
+    field: 'age',
+    headerName: 'Age',
+    type: 'number',
+    width: 50,
+  },
+  { field: 'city', headerName: 'City', width: 150 },
+  { field: 'state', headerName: 'State', width: 50 },
+  { field: 'latitude', headerName: 'Lat', width: 100 },
+  { field: 'longitude', headerName: 'Long', width: 100 },
+  { field: 'ccnumber', headerName: 'CC number', width: 150 },
 ];
 
-
-const rows = [
-  { id: 1, lastName: 'Snow', firstName: 'Jon', age: 35 },
-  { id: 2, lastName: 'Lannister', firstName: 'Cersei', age: 42 },
-  { id: 3, lastName: 'Lannister', firstName: 'Jaime', age: 45 },
-  { id: 4, lastName: 'Stark', firstName: 'Arya', age: 16 },
-  { id: 5, lastName: 'Targaryen', firstName: 'Daenerys', age: null },
-  { id: 6, lastName: 'Melisandre', firstName: null, age: 150 },
-  { id: 7, lastName: 'Clifford', firstName: 'Ferrara', age: 44 },
-  { id: 8, lastName: 'Frances', firstName: 'Rossini', age: 36 },
-  { id: 9, lastName: 'Roxie', firstName: 'Harvey', age: 65 },
-];
 
 const DataTable = () => {
     const [data, setData] = React.useState([])
@@ -57,21 +45,21 @@ const DataTable = () => {
             }
           });
     }, [])
-  return (
-    <div style={{ height: 400, width: '100%' }}>
-        {data.length > 0 ?
-            <DataGrid
-            getRowId={(row) => row.seq} 
-            rows={data}
-            columns={columns}
-            pageSize={5}
-            rowsPerPageOptions={[5]}
-            checkboxSelection
-          />
-          :
-          <></>  
-        }
-      
+
+    return (
+        <div style={{ height: 650, width: '100%' }}>
+            {data.length > 0 ?
+                <DataGrid
+                    getRowId={(row) => row.seq} 
+                    rows={data}
+                    columns={columns}
+                    pageSize={10}
+                    rowsPerPageOptions={[50]}
+                    checkboxSelection
+                />
+            :
+                <></>  
+            }
     </div>
   );
 }
