@@ -3,27 +3,8 @@ import DeckGL, { MapController } from "deck.gl";
 import { renderLayers } from "../components/RenderLayers";
 const Papa = require('papaparse');
 
-// import { csv } from "d3-fetch";
-// const DATA_URL = "./heatmap-data.csv";
-
-
-const MapPage = ({viewState}) => { 
+const MapPage = () => { 
   const [data, setData] = useState({});
-
-  //loadfdata
-  useEffect(() => {
-    /*
-    const fetchData = async () => {
-      // const result = await csv(DATA_URL);
-      const points = result.map(function (d) {
-        return { position: [+d.lng, +d.lat] };
-      });
-      setData(points);
-    };
-
-    fetchData();
-    */
-  }, []);
 
   React.useEffect(() => {
     Papa.parse('../45784.csv', {
@@ -31,11 +12,22 @@ const MapPage = ({viewState}) => {
         download: true,
         dynamicTyping: true,
         complete: function(results) {
-          // setData(results.data);
           const points = results.data.map(function (d) {
-            return { position: [+d.longitude, +d.latitude] };
+            return { 
+              type: 'Feature',
+              properties: {
+                itemId: d.seq,
+              },
+              geometry: {
+                type: 'Point',
+                "coordinates": [
+                  d.longitude,
+                  d.latitude,
+                ]
+              },
+              weight: d.age
+            };
           });
-          console.log(points)
           setData(points);
         }
       });
@@ -47,8 +39,8 @@ const MapPage = ({viewState}) => {
     longitude: -3.2943888952729092,
     latitude: 53.63605986631115,
     zoom: 6,
+    minZoom: 2,
     maxZoom: 16,
-    // pitch: 65,
     bearing: 0
   });
 
@@ -76,6 +68,7 @@ const MapPage = ({viewState}) => {
         })}
         controller={{ type: MapController, dragRotate: false }}
         initialViewState={viewport}
+        getTooltip={({object}) => object && `${object.name}\n${object.address}`}
       />
       <div className="attribution">
         <a
