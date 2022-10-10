@@ -1,6 +1,7 @@
 import React from 'react';
 import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer } from 'recharts';
 import AgeGraph from '../components/age-graph';
+import StateAgeGraph from '../components/state-age';
 
 const data = [
   {
@@ -51,7 +52,10 @@ const data = [
 
 const Stats = () => {
     return (
+      <>
         <AgeGraph />
+        <StateAgeGraph />
+      </>
     );
   };
   
