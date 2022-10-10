@@ -1,7 +1,18 @@
 import React, { useEffect, useState } from "react";
 import DeckGL, { MapController } from "deck.gl";
 import { renderLayers } from "../components/RenderLayers";
+import { Fab, Grid, Tooltip } from "@mui/material";
 const Papa = require('papaparse');
+
+
+const style = {
+  margin: 0,
+  top: 'auto',
+  right: 20,
+  bottom: 20,
+  left: 'auto',
+  position: 'fixed',
+};
 
 const MapPage = () => { 
   const [data, setData] = useState({});
@@ -44,6 +55,7 @@ const MapPage = () => {
     bearing: 0
   });
 
+
   //resize
   useEffect(() => {
     const handleResize = () => {
@@ -62,23 +74,31 @@ const MapPage = () => {
 
   return (
     <div className="App">
-      <DeckGL
-        layers={renderLayers({
-          data: data
-        })}
-        controller={{ type: MapController, dragRotate: false }}
-        initialViewState={viewport}
-        getTooltip={({object}) => object && `${object.name}\n${object.address}`}
-      />
-      <div className="attribution">
-        <a
-          href="http://www.openstreetmap.org/about/"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          © OpenStreetMap
-        </a>
-      </div>
+      <Tooltip title={"Heatmap with mean age as intensity"} arrow>
+        <Fab color="primary" style={style} aria-label="add">
+          ?
+        </Fab>
+      </Tooltip>
+      
+        <h1>"Heatmap with mean age as intensity"</h1>
+      
+        <DeckGL
+          layers={renderLayers({
+            data: data
+          })}
+          controller={{ type: MapController, dragRotate: false }}
+          initialViewState={viewport}
+        />
+        <div className="attribution">
+          <a
+            href="http://www.openstreetmap.org/about/"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            © OpenStreetMap
+          </a>
+        </div>
+      
     </div>
   );   
 };
