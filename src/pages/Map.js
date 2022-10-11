@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import DeckGL, { MapController } from "deck.gl";
 import { renderLayers } from "../components/RenderLayers";
-import { Fab, Grid, Tooltip } from "@mui/material";
+import { Fab, Tooltip } from "@mui/material";
 import RoomIcon from '@mui/icons-material/Room';
 import BubbleChartIcon from '@mui/icons-material/BubbleChart';
 
@@ -22,7 +22,7 @@ const MapPage = () => {
   const [data, setData] = useState({});
   const [showHeatmap, setShowHeatMap] = useState(false);
 
-  React.useEffect(() => {
+  useEffect(() => {
     Papa.parse('../45784.csv', {
         header: true,
         download: true,

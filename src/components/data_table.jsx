@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { DataGrid, GridToolbar } from '@mui/x-data-grid';
+import { DataGrid } from '@mui/x-data-grid';
 import CustomToolbar from './custom-toolbar';
 const Papa = require('papaparse');
 
