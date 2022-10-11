@@ -1,4 +1,4 @@
-import { HexagonLayer, TileLayer, BitmapLayer } from "deck.gl";
+import { TileLayer, BitmapLayer } from "deck.gl";
 import {IconLayer} from '@deck.gl/layers';
 import {HeatmapLayer} from '@deck.gl/aggregation-layers';
 
