@@ -9,6 +9,7 @@ import ListItemIcon from '@mui/material/ListItemIcon';
 import Checkbox from '@mui/material/Checkbox';
 import Button from '@mui/material/Button';
 import Divider from '@mui/material/Divider';
+import { CircularProgress, Skeleton } from '@mui/material';
 
 function not(a, b) {
   return a.filter((value) => b.indexOf(value) === -1);
@@ -74,7 +75,7 @@ export default function TransferListStates(props) {
     console.log(newRight)
   };
 
-  const customList = (title, items) => (
+  const customList = (title, items, loading) => (
     <Card>
       <CardHeader
         sx={{ px: 2, py: 1 }}
@@ -92,12 +93,12 @@ export default function TransferListStates(props) {
           />
         }
         title={title}
-        subheader={`${numberOfChecked(items)}/${items.length} selected`}
+        subheader={``}
       />
       <Divider />
       <List
         sx={{
-          width: 200,
+          width: 150,
           height: 230,
           bgcolor: 'background.paper',
           overflow: 'auto',
@@ -106,30 +107,58 @@ export default function TransferListStates(props) {
         component="div"
         role="list"
       >
-        {items.map((value) => {
-          const labelId = `transfer-list-all-item-${value}-label`;
+        
+        {!loading ?
+          items.map((value) => {
+            const labelId = `transfer-list-all-item-${value}-label`;
 
-          return (
-            <ListItem
-              key={value}
-              role="listitem"
-              button
-              onClick={handleToggle(value)}
-            >
-              <ListItemIcon>
-                <Checkbox
-                  checked={checked.indexOf(value) !== -1}
-                  tabIndex={-1}
-                  disableRipple
-                  inputProps={{
-                    'aria-labelledby': labelId,
-                  }}
-                />
-              </ListItemIcon>
-              <ListItemText id={labelId} primary={`${value}`} />
-            </ListItem>
-          );
-        })}
+            return (
+              <ListItem
+                key={value}
+                role="listitem"
+                button
+                onClick={handleToggle(value)}
+              >
+                <ListItemIcon>
+                  <Checkbox
+                    checked={checked.indexOf(value) !== -1}
+                    tabIndex={-1}
+                    disableRipple
+                    inputProps={{
+                      'aria-labelledby': labelId,
+                    }}
+                  />
+                </ListItemIcon>
+                <ListItemText id={labelId} primary={`${value}`} />
+              </ListItem>
+            );
+          })
+          :
+          [0, 1, 2, 3].map((value) => {
+            const labelId = `transfer-list-all-item-${value}-label`;
+
+            return (
+              <ListItem
+                key={value}
+                role="listitem"
+                button
+              >
+                <ListItemIcon>
+                  <Checkbox
+                    checked={checked.indexOf(value) !== -1}
+                    tabIndex={-1}
+                    disabled
+                    inputProps={{
+                      'aria-labelledby': labelId,
+                    }}
+
+                  />
+                </ListItemIcon>
+                <ListItemText id={labelId} primary={<Skeleton animation="wave" />} />
+              </ListItem>
+            );
+          }) 
+          }
         <ListItem />
       </List>
     </Card>
@@ -137,7 +166,7 @@ export default function TransferListStates(props) {
 
   return (
     <Grid container spacing={2} justifyContent="center" alignItems="center">
-      <Grid item>{customList('Choices', props.inactiveStates.sort())}</Grid>
+      <Grid item>{customList('States', props.inactiveStates.sort(), props.loading)}</Grid>
       <Grid item>
         <Grid container direction="column" alignItems="center">
           <Button
@@ -162,7 +191,7 @@ export default function TransferListStates(props) {
           </Button>
         </Grid>
       </Grid>
-      <Grid item>{customList('Chosen', props.activeStates.sort())}</Grid>
+      <Grid item>{customList('Chosen', props.activeStates.sort(), props.loading)}</Grid>
     </Grid>
   );
 }

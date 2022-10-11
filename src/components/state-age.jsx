@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react';
+import { Grid } from '@mui/material';
 import { ScatterChart, Scatter, XAxis, YAxis, ZAxis, Tooltip, Legend, ResponsiveContainer } from 'recharts';
 import TransferListStates from './transferlist-list-states';
 const Papa = require('papaparse');
@@ -8,6 +9,7 @@ const StateAgeGraph = () => {
     const [ data, setData ] = useState([]);
     const [activeStates, setActiveStates] = useState([]);
     const [inactiveStates, setInactiveStates] = useState([]);
+    const [loading, setLoading] = useState(true)
 
     const range = [0, 1000];
 
@@ -37,6 +39,7 @@ const StateAgeGraph = () => {
                  
                 setData(tmpData);
                 setInactiveStates(Object.keys(tmpData))
+                setLoading(false)
             }
           });
     }, []);
@@ -45,13 +48,21 @@ const StateAgeGraph = () => {
 
 
     return (
-      <div style={{ width: '95%' }}>
-        
-        <TransferListStates inactiveStates={inactiveStates} setInactiveStates={states => setInactiveStates(states)} activeStates={activeStates} setActiveStates={states => setActiveStates(states)}/>
-        {activeStates.map(state => (
+      <div style={{ width: '100%' }}>
+        <Grid container spacing={2}>
+          <Grid item xs={12}>
+            <h1>Bubleplot with age distribution for each state</h1>
+          </Grid>
+        </Grid>
+        <Grid container spacing={2}>
+          <Grid item xs={4}>
+            <TransferListStates loading={loading} inactiveStates={inactiveStates} setInactiveStates={states => setInactiveStates(states)} activeStates={activeStates} setActiveStates={states => setActiveStates(states)}/>
+          </Grid>
+          <Grid item xs={8}>
+          {activeStates.map(state => (
             <ResponsiveContainer width="100%" height={100}>
             <ScatterChart
-              width={700}
+              width={800}
               height={100}
               margin={{
                 top: 40,
@@ -84,6 +95,9 @@ const StateAgeGraph = () => {
             </ScatterChart>
           </ResponsiveContainer>
         ))}
+          </Grid>
+        </Grid>
+
       </div>
     );
 }
