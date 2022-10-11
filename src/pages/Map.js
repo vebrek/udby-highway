@@ -1,22 +1,10 @@
 import React, { useEffect, useState } from "react";
 import DeckGL, { MapController } from "deck.gl";
 import { renderLayers } from "../components/RenderLayers";
-import { Fab, Tooltip } from "@mui/material";
-import RoomIcon from '@mui/icons-material/Room';
-import BubbleChartIcon from '@mui/icons-material/BubbleChart';
+import ToggleMapLayer from "../components/toggle-map-layer";
 
 
 const Papa = require('papaparse');
-
-
-const style = {
-  margin: 0,
-  top: 'auto',
-  right: 20,
-  bottom: 20,
-  left: 'auto',
-  position: 'fixed',
-};
 
 const MapPage = () => { 
   const [data, setData] = useState({});
@@ -79,19 +67,7 @@ const MapPage = () => {
 
   return (
     <div className="App">
-      {showHeatmap ?
-        <Tooltip title={"Show map with points from dataset"} arrow>
-          <Fab color="secondary" aria-label="add" style={style} onClick={() => setShowHeatMap(false)}>
-            <RoomIcon />
-          </Fab>
-        </Tooltip>
-      :
-        <Tooltip title={"Show heatmap with mean age as intensity"} arrow>
-          <Fab color="secondary" aria-label="add" style={style} onClick={() => setShowHeatMap(true)}>
-            <BubbleChartIcon />
-          </Fab>
-        </Tooltip>
-      }
+        <ToggleMapLayer showHeatmap={showHeatmap} setShowHeatMap={setShowHeatMap} />
         <DeckGL
           layers={renderLayers({
             data: data,

@@ -1,4 +1,4 @@
-import * as React from 'react';
+import React, { useEffect } from 'react';
 import { CircularProgress, Grid } from '@mui/material';
 import { BarChart, Brush, Bar, XAxis, YAxis, CartesianGrid, Tooltip, Legend } from 'recharts';
 const Papa = require('papaparse');
@@ -7,7 +7,7 @@ const Papa = require('papaparse');
 const AgeGraph = () => {
     const [ data, setData ] = React.useState([]);
 
-    React.useEffect(() => {
+    useEffect(() => {
         Papa.parse('../45784.csv', {
             header: true,
             download: true,

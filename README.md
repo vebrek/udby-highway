@@ -1,11 +1,11 @@
 # Project Udby Highway
-This project is a response to "Oppdrag - 45784" and is developed in React. User friendliness, simplicity and highlight data of valuechas been the main motivations during the development.
+This project is a response to "Oppdrag - 45784" and is developed in React. User friendliness, simplicity and highlighting  data of valuechas been the main motivations during the development.
 
-When the analyst opens the application he or she is met with a dashboard displaying a table with raw data. It is possible to sort on all columns and filter for a range of criterias, like contains, starts with and equals with more. The table is created using DataGrid from Material UI 
+When the analyst opens the application he or she is met with a dashboard displaying a table with raw data. It is possible to sort by all columns and filter for a range of criterias like contains, starts with and equals with more. The table is created using DataGrid from Material UI 
 
-The map view is created using deck.gl and open street map. There is two different layers that can be toggled between using the button at the bottom right corner. In the default view each data row is presented using a pointer, while the other layer renders a heatmap with mean age as intensity.
+The map view is created using deck.gl and OpenStreetMap. There is two different layers that can be toggled between using the button at the bottom right corner. In the default view each datarow is presented using a pointer, while the other layer renders a heatmap with mean age as intensity.
 
-In the third page different plots are displayed. The barplot in the top shows the age distribution of the entire dataset. By using the bar under the plot it is possible to zoom in on different areas of the plot and move to a range of interest. The bottom plot shows the age distribution of a single state using a bubleplot. One can select one, a couple or all states. This makes it possible to compare age distributions between different states.
+In the third page two different plots are displayed. The barplot on the top shows the age distribution of the entire dataset. By using the bar under the plot it is possible to zoom in on different areas of the plot and move to a range of interest. The bottom plot shows the age distribution of a single state using a bubleplot. One can select a single state, a couple of states or all states. This makes it possible to compare age distributions between different states. All charts are created using recharts.
 
 ## Getting Started
 1. Clone this project using
@@ -13,14 +13,13 @@ In the third page different plots are displayed. The barplot in the top shows th
 git clone https://github.com/vebrek/udby-highway.git 
 ```
 2. Cd into directory and install dependencies using `npm i` 
-2. Start app in development with the command `npm start`
-
+2. Start app in development mode with the command `npm start`
 
 ## TODO
 * Fetch data from API
-* Implement GraphQL reduce loaded data
+* Implement GraphQL to simplify dataflow
 * Load data in batches
-* Check if CCNumber is valid
+* Check if a CCNumber is valid
 * Track CCNumber on map
 * Cluster points on map
 * More statistics and plots

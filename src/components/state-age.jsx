@@ -57,7 +57,7 @@ const StateAgeGraph = () => {
           </Grid>
           <Grid item xs={8}>
           {activeStates.map(state => (
-            <ResponsiveContainer width="100%" height={100}>
+            <ResponsiveContainer width="100%" height={100} key={`res-container-${state}`}>
             <ScatterChart
               width={800}
               height={100}

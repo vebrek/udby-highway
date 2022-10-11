@@ -30,37 +30,21 @@ const columns = [
 ];
 
 
-const DataTable = () => {
-    const [ data, setData ] = useState([]);
-    const [ isLoading, setIsLoading ] = useState(true);
+const DataTable = (props) => {
     const [pageSize, setPageSize] = useState(10)
-
-    useEffect(() => {
-        Papa.parse('../45784.csv', {
-            header: true,
-            download: true,
-            dynamicTyping: true,
-            complete: function(results) {
-              setData(results.data);
-              setIsLoading(false);
-            }
-          });
-    }, [])
 
     return (
         <div style={{ display: 'flex', width: '100%', height: window.innerHeight - 120 }}>
             <DataGrid
                 getRowId={(row) => row.seq} 
-                rows={data}
+                rows={props.data}
                 columns={columns}
-                loading={isLoading}
+                loading={props.isLoading}
                 pageSize={pageSize}
                 rowsPerPageOptions={[5, 10, 20, 50, 100]}
                 onPageSizeChange={(newPageSize) => setPageSize(newPageSize)}
                 pagination
                 checkboxSelection
-                //autoHeight 
-                
                 components={{
                     Toolbar: CustomToolbar,
                 }}
