@@ -1,4 +1,4 @@
-import * as React from 'react';
+import React, { useState, useEffect } from 'react';
 import { DataGrid, GridToolbar } from '@mui/x-data-grid';
 import CustomToolbar from './custom-toolbar';
 const Papa = require('papaparse');
@@ -31,10 +31,11 @@ const columns = [
 
 
 const DataTable = () => {
-    const [ data, setData ] = React.useState([]);
-    const [ isLoading, setIsLoading ] = React.useState(true);
+    const [ data, setData ] = useState([]);
+    const [ isLoading, setIsLoading ] = useState(true);
+    const [pageSize, setPageSize] = useState(10)
 
-    React.useEffect(() => {
+    useEffect(() => {
         Papa.parse('../45784.csv', {
             header: true,
             download: true,
@@ -47,16 +48,19 @@ const DataTable = () => {
     }, [])
 
     return (
-        <div style={{ display: 'flex', width: '100%', }}>
+        <div style={{ display: 'flex', width: '100%', height: window.innerHeight - 120 }}>
             <DataGrid
                 getRowId={(row) => row.seq} 
                 rows={data}
                 columns={columns}
                 loading={isLoading}
-                pageSize={10}
-                rowsPerPageOptions={[10]}
+                pageSize={pageSize}
+                rowsPerPageOptions={[5, 10, 20, 50, 100]}
+                onPageSizeChange={(newPageSize) => setPageSize(newPageSize)}
+                pagination
                 checkboxSelection
-                autoHeight 
+                //autoHeight 
+                
                 components={{
                     Toolbar: CustomToolbar,
                 }}
