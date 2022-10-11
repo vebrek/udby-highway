@@ -9,14 +9,13 @@ import logo from './logo.svg';
 import './App.css';
 import NavBar from "./components/navbar";
 
-function App({viewState}) {
-  console.log(viewState)
+function App() {
   return (
     <BrowserRouter>
       <Routes>
         <Route path="/" element={<Layout />}>
           <Route index element={<Home />} />
-          <Route path="map" element={<MapPage viewState={viewState}/>} />
+          <Route path="map" element={<MapPage />} />
           <Route path="stats" element={<Stats />} />
         </Route>
       </Routes>

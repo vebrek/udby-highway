@@ -2,6 +2,10 @@ import React, { useEffect, useState } from "react";
 import DeckGL, { MapController } from "deck.gl";
 import { renderLayers } from "../components/RenderLayers";
 import { Fab, Grid, Tooltip } from "@mui/material";
+import RoomIcon from '@mui/icons-material/Room';
+import BubbleChartIcon from '@mui/icons-material/BubbleChart';
+
+
 const Papa = require('papaparse');
 
 
@@ -16,6 +20,7 @@ const style = {
 
 const MapPage = () => { 
   const [data, setData] = useState({});
+  const [showHeatmap, setShowHeatMap] = useState(false);
 
   React.useEffect(() => {
     Papa.parse('../45784.csv', {
@@ -74,17 +79,23 @@ const MapPage = () => {
 
   return (
     <div className="App">
-      <Tooltip title={"Heatmap with mean age as intensity"} arrow>
-        <Fab color="primary" style={style} aria-label="add">
-          ?
-        </Fab>
-      </Tooltip>
-      
-        <h1>"Heatmap with mean age as intensity"</h1>
-      
+      {showHeatmap ?
+        <Tooltip title={"Show map with points from dataset"} arrow>
+          <Fab color="secondary" aria-label="add" style={style} onClick={() => setShowHeatMap(false)}>
+            <RoomIcon />
+          </Fab>
+        </Tooltip>
+      :
+        <Tooltip title={"Show heatmap with mean age as intensity"} arrow>
+          <Fab color="secondary" aria-label="add" style={style} onClick={() => setShowHeatMap(true)}>
+            <BubbleChartIcon />
+          </Fab>
+        </Tooltip>
+      }
         <DeckGL
           layers={renderLayers({
-            data: data
+            data: data,
+            showHeatmap: showHeatmap
           })}
           controller={{ type: MapController, dragRotate: false }}
           initialViewState={viewport}
