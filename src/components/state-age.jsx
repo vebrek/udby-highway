@@ -1,10 +1,14 @@
 import React, { useEffect, useState } from 'react';
 import { ScatterChart, Scatter, XAxis, YAxis, ZAxis, Tooltip, Legend, ResponsiveContainer } from 'recharts';
+import TransferListStates from './transferlist-list-states';
 const Papa = require('papaparse');
 
 
 const StateAgeGraph = () => {  
     const [ data, setData ] = useState([]);
+    const [activeStates, setActiveStates] = useState([]);
+    const [inactiveStates, setInactiveStates] = useState([]);
+
     const range = [0, 1000];
 
     useEffect(() => {
@@ -32,6 +36,7 @@ const StateAgeGraph = () => {
                 }
                  
                 setData(tmpData);
+                setInactiveStates(Object.keys(tmpData))
             }
           });
     }, []);
@@ -41,7 +46,9 @@ const StateAgeGraph = () => {
 
     return (
       <div style={{ width: '95%' }}>
-        {['HI', 'NY', 'AL'].map(state => (
+        
+        <TransferListStates inactiveStates={inactiveStates} setInactiveStates={states => setInactiveStates(states)} activeStates={activeStates} setActiveStates={states => setActiveStates(states)}/>
+        {activeStates.map(state => (
             <ResponsiveContainer width="100%" height={100}>
             <ScatterChart
               width={700}
