@@ -21,13 +21,13 @@ const Layout = () => {
           </Typography>
           <Box sx={{ display: { xs: 'none', sm: 'block' } }}>
             <Button component={Link} to="/" sx={{ color: '#fff' }}>
-                Forside
+                Home
             </Button>
             <Button component={Link} to="/map" sx={{ color: '#fff' }}>
-                Kart
+                Map
             </Button>
             <Button component={Link} to="/stats" sx={{ color: '#fff' }}>
-                Statistikk
+              Statistics
             </Button>
           </Box>
         </Toolbar>
