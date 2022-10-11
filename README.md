@@ -1,6 +1,30 @@
-# Getting Started with Create React App
+# Project Udby Highway
+This project is a response to "Oppdrag - 45784" and is developed in React. User friendliness, simplicity and highlight data of valuechas been the main motivations during the development.
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+When the analyst opens the application he or she is met with a dashboard displaying a table with raw data. It is possible to sort on all columns and filter for a range of criterias, like contains, starts with and equals with more. The table is created using DataGrid from Material UI 
+
+The map view is created using deck.gl and open street map. There is two different layers that can be toggled between using the button at the bottom right corner. In the default view each data row is presented using a pointer, while the other layer renders a heatmap with mean age as intensity.
+
+In the third page different plots are displayed. The barplot in the top shows the age distribution of the entire dataset. By using the bar under the plot it is possible to zoom in on different areas of the plot and move to a range of interest. The bottom plot shows the age distribution of a single state using a bubleplot. One can select one, a couple or all states. This makes it possible to compare age distributions between different states.
+
+## Getting Started
+1. Clone this project using
+```
+git clone https://github.com/vebrek/udby-highway.git 
+```
+2. Cd into directory and install dependencies using `npm i` 
+2. Start app in development with the command `npm start`
+
+
+## TODO
+* Fetch data from API
+* Implement GraphQL reduce loaded data
+* Load data in batches
+* Check if CCNumber is valid
+* Track CCNumber on map
+* Cluster points on map
+* More statistics and plots
+
 
 ## Available Scripts
 
@@ -9,7 +33,7 @@ In the project directory, you can run:
 ### `npm start`
 
 Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+Open [http://localhost:3000](http://localhost:3000) to view  it in your browser.
 
 The page will reload when you make changes.\
 You may also see any lint errors in the console.
@@ -38,33 +62,3 @@ If you aren't satisfied with the build tool and configuration choices, you can `
 Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
 
 You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Code Splitting
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
-
-### Analyzing the Bundle Size
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
