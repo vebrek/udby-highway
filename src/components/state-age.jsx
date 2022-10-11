@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { Grid } from '@mui/material';
-import { ScatterChart, Scatter, XAxis, YAxis, ZAxis, Tooltip, Legend, ResponsiveContainer } from 'recharts';
+import { ScatterChart, Scatter, XAxis, YAxis, ZAxis, Tooltip, ResponsiveContainer } from 'recharts';
 import TransferListStates from './transferlist-list-states';
 const Papa = require('papaparse');
 
@@ -43,9 +43,6 @@ const StateAgeGraph = () => {
             }
           });
     }, []);
-
-    console.log(data['HI'])
-
 
     return (
       <div style={{ width: '100%' }}>

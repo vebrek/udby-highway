@@ -9,7 +9,7 @@ import ListItemIcon from '@mui/material/ListItemIcon';
 import Checkbox from '@mui/material/Checkbox';
 import Button from '@mui/material/Button';
 import Divider from '@mui/material/Divider';
-import { CircularProgress, Skeleton } from '@mui/material';
+import { Skeleton } from '@mui/material';
 
 function not(a, b) {
   return a.filter((value) => b.indexOf(value) === -1);
@@ -25,8 +25,6 @@ function union(a, b) {
 
 export default function TransferListStates(props) {
   const [checked, setChecked] = React.useState([]);
-  const [left, setLeft] = React.useState(props.initStates);
-  const [right, setRight] = React.useState([]);
 
   const leftChecked = intersection(checked, props.inactiveStates);
   const rightChecked = intersection(checked, props.activeStates);
@@ -57,8 +55,6 @@ export default function TransferListStates(props) {
   const handleCheckedRight = () => {
     let newLeft = not(props.inactiveStates, leftChecked);
     let newRight = [...props.activeStates].concat(leftChecked);
-    // setRight(newRight);
-    // setLeft(newLeft);
     setChecked(not(checked, leftChecked));
     props.setInactiveStates(newLeft);
     props.setActiveStates(newRight)
@@ -67,8 +63,6 @@ export default function TransferListStates(props) {
   const handleCheckedLeft = () => {
     let newLeft = [...props.inactiveStates].concat(rightChecked);
     let newRight = not([...props.activeStates], rightChecked);
-    // setLeft(newLeft);
-    // setRight(newRight);
     setChecked(not(checked, rightChecked));
     props.setInactiveStates(newLeft);
     props.setActiveStates(newRight)
