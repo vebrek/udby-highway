@@ -1,11 +1,25 @@
 # Project Udby Highway
 This project is a response to "Oppdrag - 45784" and is developed in React. User friendliness, simplicity and highlighting  data of valuechas been the main motivations during the development.
 
-When the analyst opens the application he or she is met with a dashboard displaying a table with raw data. It is possible to sort by all columns and filter for a range of criterias like contains, starts with and equals with more. The table is created using DataGrid from Material UI 
+When the analyst opens the application he or she is met with a dashboard displaying a table with raw data. It is possible to sort by all columns and filter for a range of criterias like contains, starts with and equals with more. The table is created using DataGrid from Material UI.
+
+
+![Image of dashboard](./public/demo/dashboard.png)
+
 
 The map view is created using deck.gl and OpenStreetMap. There is two different layers that can be toggled between using the button at the bottom right corner. In the default view each datarow is presented using a pointer, while the other layer renders a heatmap with mean age as intensity.
 
+![Image of map](./public/demo/map.png)
+
+![Image of heatmap](./public/demo/heatmap.png)
+
 In the third page two different plots are displayed. The barplot on the top shows the age distribution of the entire dataset. By using the bar under the plot it is possible to zoom in on different areas of the plot and move to a range of interest. The bottom plot shows the age distribution of a single state using a bubleplot. One can select a single state, a couple of states or all states. This makes it possible to compare age distributions between different states. All charts are created using recharts.
+
+
+![Image of age plot](./public/demo/ageplot.png)
+
+
+![Image of distribution of age in different states](./public/demo/agestateplot.png)
 
 ## Getting Started
 1. Clone this project using
